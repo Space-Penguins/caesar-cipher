@@ -23,10 +23,8 @@ def caesarCipher(text: str,shift: int) -> str:
                 ordinalShift = uperCaseMin + (ordinalShift - uperCaseMax) - 1
         elif (value >= lowerCaseMin and value <= lowerCaseMax):
             if (ordinalShift < lowerCaseMin):
-                print(1)
                 ordinalShift = lowerCaseMax - (lowerCaseMin - ordinalShift)
             elif (ordinalShift > lowerCaseMax):
-                print(2)
                 ordinalShift = lowerCaseMin + (ordinalShift - lowerCaseMax) - 1
 
         characterShift = chr(ordinalShift)
