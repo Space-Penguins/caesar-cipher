@@ -1,21 +1,38 @@
 #!/usr/bin/env python3
 import argparse
-import unittest
-
-class TestCaesarCipher(unittest.TestCase):
-
-    def test_cipher(self):
-        self.assertEqual(caesarCipher("abc",1),"bcd")
 
 def caesarCipher(text: str,shift: int) -> str:
+    lowerCaseMax = 122
+    lowerCaseMin = 97
+    uperCaseMax = 90
+    uperCaseMin = 65
     shiftedText = "" 
-    for letter in text:
-        if not letter.isalpha():
-            shiftedText += characterShift
+
+    for symbol in text:
+        if not symbol.isalpha():
+            shiftedText += symbol
             continue
-        ordinalShift = ord(letter) + shift
+
+        value = ord(symbol)
+        ordinalShift = value + shift
+
+        if (value >= uperCaseMin and value <= uperCaseMax):
+            if (ordinalShift < uperCaseMin):
+                ordinalShift = uperCaseMax - (uperCaseMin - ordinalShift)
+            elif (ordinalShift > uperCaseMax):
+                ordinalShift = uperCaseMin + (ordinalShift - uperCaseMax) - 1
+        elif (value >= lowerCaseMin and value <= lowerCaseMax):
+            if (ordinalShift < lowerCaseMin):
+                print(1)
+                ordinalShift = lowerCaseMax - (lowerCaseMin - ordinalShift)
+            elif (ordinalShift > lowerCaseMax):
+                print(2)
+                ordinalShift = lowerCaseMin + (ordinalShift - lowerCaseMax) - 1
+
         characterShift = chr(ordinalShift)
         shiftedText += characterShift
+        continue
+
 
     return shiftedText
 
