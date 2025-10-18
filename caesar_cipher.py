@@ -2,10 +2,12 @@
 import argparse
 
 def caesarCipher(text: str,shift: int) -> str:
-    lowerCaseMax = 122
-    lowerCaseMin = 97
-    uperCaseMax = 90
-    uperCaseMin = 65
+    uperCaseMin = ord('a')
+    uperCaseMax = ord('z')
+    uperCaseRange = range(uperCaseMin, uperCaseMax + 1)
+    lowerCaseMin = ord('A')
+    lowerCaseMax = ord('Z')
+    lowerCaseRange = range(lowerCaseMin, lowerCaseMax + 1)
     shiftedText = "" 
 
     for symbol in text:
@@ -13,24 +15,23 @@ def caesarCipher(text: str,shift: int) -> str:
             shiftedText += symbol
             continue
 
-        value = ord(symbol)
-        ordinalShift = value + shift
+        ordValue = ord(symbol)
+        ordShift = ordValue + shift
 
-        if (value >= uperCaseMin and value <= uperCaseMax):
-            if (ordinalShift < uperCaseMin):
-                ordinalShift = uperCaseMax - (uperCaseMin - ordinalShift)
-            elif (ordinalShift > uperCaseMax):
-                ordinalShift = uperCaseMin + (ordinalShift - uperCaseMax) - 1
-        elif (value >= lowerCaseMin and value <= lowerCaseMax):
-            if (ordinalShift < lowerCaseMin):
-                ordinalShift = lowerCaseMax - (lowerCaseMin - ordinalShift)
-            elif (ordinalShift > lowerCaseMax):
-                ordinalShift = lowerCaseMin + (ordinalShift - lowerCaseMax) - 1
+        if ordValue in uperCaseRange:
+            if (ordShift < uperCaseMin):
+                ordShift = uperCaseMax - (uperCaseMin - ordShift) + 1
+            elif (ordShift > uperCaseMax):
+                ordShift = uperCaseMin + (ordShift - uperCaseMax) - 1
 
-        characterShift = chr(ordinalShift)
+        if ordValue in lowerCaseRange:
+            if (ordShift < lowerCaseMin):
+                ordShift = lowerCaseMax - (lowerCaseMin - ordShift) + 1
+            elif (ordShift > lowerCaseMax):
+                ordShift = lowerCaseMin + (ordShift - lowerCaseMax) - 1
+
+        characterShift = chr(ordShift)
         shiftedText += characterShift
-        continue
-
 
     return shiftedText
 
